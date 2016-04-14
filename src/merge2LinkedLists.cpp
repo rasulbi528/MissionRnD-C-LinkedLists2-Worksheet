@@ -17,10 +17,19 @@ struct node {
 	int num;
 	struct node *next;
 };
-
 struct node * merge2LinkedLists(struct node *head1, struct node *head2) {
-	struct node*temp1, *temp2;
-	temp1 = head1;
-	temp2 = head2;
-	return head1;
+	struct node* newhead = NULL;
+	if (head1 == NULL)
+		return head2;
+	if (head2 == NULL)
+		return head1;
+	if (head1->num <= head2->num) {
+		newhead = head1;
+		newhead->next = merge2LinkedLists(head1->next, head2);
+	}
+	else {
+		newhead = head2;
+		newhead->next = merge2LinkedLists(head1, head2->next);
+	}
+	return newhead;
 }
